@@ -181,29 +181,32 @@
                         <form action="#">
                             <div class="check-date">
                                 <label for="date-in">Check In:</label>
-                                <input type="text" class="date-input" id="date-in">
+                                <input type="text" class="date-input" id="date-in" value="22 August, 2024">
                                 <i class="icon_calendar"></i>
                             </div>
                             <div class="check-date">
                                 <label for="date-out">Check Out:</label>
-                                <input type="text" class="date-input" id="date-out">
+                                <input type="text" class="date-input" id="date-out" value="23 August, 2024">
                                 <i class="icon_calendar"></i>
                             </div>
                             <div class="select-option">
                                 <label for="guest">Guests:</label>
                                 <select id="guest">
-                                    <option value="">2 Adults</option>
-                                    <option value="">3 Adults</option>
+                                    <option value="2">2 Adults</option>
+                                    <option value="3">3 Adults</option>
                                 </select>
                             </div>
                             <div class="select-option">
                                 <label for="room">Room:</label>
                                 <select id="room">
-                                    <option value="">1 Room</option>
-                                    <option value="">2 Room</option>
+                                    <option value="1">1 Room</option>
+                                    <option value="2">2 Room</option>
+                                    <option value="3">3 Room</option>
+                                    <option value="4">4 Room</option>
+                                    <option value="5">5 Room</option>
                                 </select>
                             </div>
-                            <button type="submit">Check Availability</button>
+                            <button id="checkAvailabilityBtn" type="button">Check Availability</button>
                         </form>
                     </div>
                 </div>

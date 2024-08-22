@@ -96,14 +96,62 @@
     /*------------------
 		Date Picker
 	--------------------*/
-    $(".date-input").datepicker({
+    $("#date-in").datepicker({
         minDate: 0,
-        dateFormat: 'dd MM, yy'
+        dateFormat: 'dd MM, yy',
+        defaultDate: "22 August, 2024",
+        onSelect: function(dateText, inst) {
+            // You can also perform other actions here
+            console.log("Date selected:", dateText);
+            var selected = new Date(dateText);
+            var today = new Date();
+
+            // Calculate the time difference in milliseconds
+            var timeDifference = Math.abs(today - selected);
+
+            // Convert the time difference from milliseconds to days
+            var dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24))+1;
+            console.log("Days difference:", dayDifference);
+
+            $("#date-out").datepicker("option", "minDate", dayDifference); 
+        }
+    });
+
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    $("#date-out").datepicker({
+        minDate: 1,
+        dateFormat: 'dd MM, yy',
+        defaultDate: "23 August, 2024"
     });
 
     /*------------------
 		Nice Select
 	--------------------*/
     $("select").niceSelect();
+
+    // check AvailabilityBtn
+    $("#checkAvailabilityBtn").on("click", function() {
+        let startDate =  $("#date-in").datepicker("getDate");
+        let endDate =  $("#date-out").datepicker("getDate");
+        let checkIn =  $.datepicker.formatDate("yy-mm-dd", startDate);
+        let checkOut =  $.datepicker.formatDate("yy-mm-dd", endDate);
+        let room = $("#room").val();
+        let guest = $("#guest").val();
+        let guestType = guest == 1 ? 'Single' : (guest == 2 ? 'Double' : (guest == 3 ? 'Triple': 'Triple'));
+        let roomGrades = [];
+        for (let index = 0; index < room; index++) {
+            roomGrades.push(`${guest}:0:0:0:${guestType}`);
+        }
+        const rg = roomGrades.join('%7C');
+        console.log(`date ${startDate} ${endDate} ${checkIn} ${checkOut} ${room} ${guest}`);
+        let encodeId = 'TUEyNDAzMDAwMDA1';
+        let id = 'MA05110755-MA2403000005';
+        let baseUrl = 'https://www.artotelwanderlust.com/hotel/artotel-gelora-senayan/g/jakarta-en.html?';
+        let url = `${baseUrl}checkIn=${checkIn}&checkOut=${checkOut}&rm=${room}&rg=${rg}&id=${id}&encodeId=${encodeId}`;
+        window.open(url, "_blank");
+    });
 
 })(jQuery);
